@@ -6,12 +6,19 @@
 import java.util.*;
 class Recur1{
 
-	static double optimumPrice; // the best price as a static double
-	static String optimumorder; // the best order as a static double 
-	static double tipbef; // the tip before as a static double
+	static Double optimumPrice = Double.POSITIVE_INFINITY; // set optimum price to highest
+	static String optimumorder = ""; // set the bestorder to empty
+	static double minimum = 5.35 * 1.15; // minimum amount needed to buy an item with tip
 	
-	public static void food(double amount){
-		food("",0,amount);
+	public static void food(double money){
+		if(money > minimum){
+			food("",0,money);
+		}
+		
+		else{
+			
+			System.out.println("You can not afford to buy anything!!!"); // if they can not afford anything
+		}
 	}
 	
 	public static void food(String sofar, int position, double leftover){
@@ -27,8 +34,8 @@ class Recur1{
 		}
 		else{
 			food(sofar,position+1,leftover); // dont take item
-			if (leftover>price[position]){ // if the amount of money left over is greater than the price of item take the item
-			food(sofar+","+ menu[position],position+1,leftover - price[position]); // take food item
+			if (leftover>(price[position]*1.15)){ // if the amount of money left over is greater than the price of item take the item
+			food(sofar+","+ menu[position],position+1,leftover - (price[position]*1.15)); // take food item and multiply the price by 1.15 for tip
 			} 
 				
 		}
@@ -39,20 +46,16 @@ class Recur1{
 
 		System.out.println("Enter the amount of money");
 		Scanner kb = new Scanner(System.in);
-		double before = kb.nextDouble();
-		tipbef = before/1.15; // to get the amount of money pre tip 
+		double pay = kb.nextDouble();
 		
-		optimumPrice = Double.POSITIVE_INFINITY; // set optimum price to highest
-		optimumorder = ""; // set the bestorder to empty
+		food(pay); 
 		
-		food(tipbef); // calls the recursion method using the amount before tip (for example if money entered is 100 tipbef is aproxx 86)
+		double cost = (pay - optimumPrice)/1.15; // finding how much was left with out any tips
+		optimumPrice += (pay - optimumPrice) - cost; // amount of money left to use
+		double tiptotal = (optimumPrice/cost)*100; // calculating the tital tip
 		
-		double cost = tipbef - optimumPrice; // calculates the cost remaining 
-		double percent = (optimumPrice/cost); // take the percent of that cost
-		double tiptotal = percent + 15; // adds that precent to the current 15 percent tip
-		
-		System.out.println("Your tip is: " + tiptotal);
-		System.out.println("Your best order is: "+ optimumorder);
+			System.out.println("Your tip is: " + tiptotal);
+			System.out.println("Your best order is: "+ optimumorder);
 	}
 
 }
