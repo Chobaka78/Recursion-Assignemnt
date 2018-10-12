@@ -63,7 +63,7 @@ class Recur1{
 		optimumPrice += (pay - optimumPrice) - cost; // amount of money left to use
 		double tiptotal = (optimumPrice/cost)*100; // calculating the tital tip
 		
-			System.out.println("Your tip is: " + tiptotal);
+			System.out.println("Your tip is : " +"%"+ tiptotal);
 			System.out.println("Your best order is: "+ optimumorder);
 	
 	}
