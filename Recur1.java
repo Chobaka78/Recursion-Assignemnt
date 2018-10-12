@@ -33,10 +33,19 @@ class Recur1{
 			}
 		}
 		else{
-			food(sofar,position+1,leftover); // dont take item
-			if (leftover>(price[position]*1.15)){ // if the amount of money left over is greater than the price of item take the item
-			food(sofar+","+ menu[position],position+1,leftover - (price[position]*1.15)); // take food item and multiply the price by 1.15 for tip
-			} 
+			if(menu[position] == "Three Cheese Toast"){//if three cheese toast is selected 
+				food(sofar,position + 1, leftover); // dont take
+			}
+			
+			else if (menu[position] == "Cactus Nachos"){ // if Cactus Nachos is selected 
+				food(sofar, position + 1, leftover); // dont take
+			}
+			else{
+				food(sofar,position+1,leftover); // dont take item
+				if (leftover>(price[position]*1.15)){ // if the amount of money left over is greater than the price of item take the item
+				food(sofar+","+ menu[position],position+1,leftover - (price[position]*1.15)); // take food item and multiply the price by 1.15 for tip
+				} 
+		}
 				
 		}
 			
@@ -56,6 +65,7 @@ class Recur1{
 		
 			System.out.println("Your tip is: " + tiptotal);
 			System.out.println("Your best order is: "+ optimumorder);
+	
 	}
 
 }
